@@ -1,19 +1,15 @@
-import unittest
-from app import create_app  # Adjust the import according to your project structure
+# test_api_route.py
 
-class ApiRouteTestCase(unittest.TestCase):
-    def setUp(self):
-        # Set up the test client
-        self.app = create_app()  # Pass in any necessary configuration
-        self.client = self.app.test_client()
+import pytest
+from app import create_app
 
-    def test_api_route(self):
-        # Test the /api/ route
-        response = self.client.get('/api/')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('Welcome to the Gateway', str(response.data))
+@pytest.fixture
+def client():
+    app = create_app()  # Configure your app for testing
+    with app.test_client() as client:
+        yield client
 
-    # Add more tests as needed
-
-if __name__ == '__main__':
-    unittest.main()
+def test_api_index_route(client):
+    response = client.get('/api/')
+    assert response.status_code == 200
+    assert 'Welcome to the Gateway' in response.get_data(as_text=True)
