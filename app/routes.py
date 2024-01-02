@@ -6,7 +6,7 @@ from flask import make_response
 from flask_restful import Api, Resource
 # Import other resources as needed
 
-class Home(Resource):
+class Index(Resource):
     def get(self):
         response = OrderedDict([
             ('status', 'success'),
@@ -21,8 +21,5 @@ class Home(Resource):
 def create_routes(app):
     api = Api(app, prefix='/api')
 
-    # Add Home resource
-    api.add_resource(Home, '/')
-
-    # Define other RESTful routes using Flask-RESTful
-    # Example: api.add_resource(YourResource, '/your-resource')
+    # Add your routes here
+    api.add_resource(Index, '/')
