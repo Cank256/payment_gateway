@@ -7,18 +7,18 @@ from app.common.constants import STATUS_CODES
 
 class IndexRoute(Resource):
     def get(self):
-        return Response.create(200, {'message': 'Welcome to the Gateway'})
+        return Responses.create(200, {'message': 'Welcome to the Gateway'})
 
 class CustomErrors(Resource):
     def method_not_allowed(e):
-        return Response.create(405, {'error': 'Method not allowed for the requested URL.'})
+        return Responses.create(405, {'error': 'Method not allowed for the requested URL.'})
 
-class Response(Resource):
+class Responses(Resource):
     def create(code, data=None, extra_info=''):
         if not isinstance(code, int):
             raise ValueError(f"Expected an integer for 'code', got {type(code)}")
 
-        message = Response.generate_message(code, extra_info)
+        message = Responses.generate_message(code, extra_info)
         success = code < 300
         response = OrderedDict([
                 ('success', success),
