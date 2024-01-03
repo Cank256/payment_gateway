@@ -91,3 +91,6 @@ ENV/
 
 # Macos Files
 .DS_Store
+
+# Providers Config file
+.providers.json

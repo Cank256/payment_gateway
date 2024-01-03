@@ -5,7 +5,7 @@ class Config:
     DEBUG = False  # Turn off in production
     SECRET_KEY = os.environ.get('SECRET_KEY')
     WEBHOOK_SECRET_KEY = os.environ.get('WEBHOOK_SECRET_KEY')
-    MONGO_URI = os.environ.get('MONGO_URI')
+    MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://localhost:27017/gateway_flask')
     PORT = int(os.environ.get('APP_PORT', 8080))
 
 # Additional configuration classes for different environments

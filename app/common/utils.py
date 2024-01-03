@@ -4,6 +4,7 @@ from flask import make_response
 from flask_restful import Resource
 import json
 
+
 class IndexRoute(Resource):
     """
     A Flask-RESTful resource representing the index route of the API.
@@ -78,3 +79,9 @@ class Responses(Resource):
             message += f" {extra_info}"
 
         return message.strip()
+
+def load_service_providers():
+        with open('../../.provider.json', 'r') as file:
+            data = json.load(file)
+            print(data)
+        return data['service_providers']

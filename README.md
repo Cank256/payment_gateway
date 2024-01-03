@@ -35,6 +35,16 @@ cd payment_gateway
 pip install -r requirements.txt
 ```
 
+4. Setup the .env with it's respective variables:
+```
+cp .env.example .env
+```
+
+5. Setup the .providers.json with it's variables:
+```
+cp .providers-copy.json .providers.json
+```
+
 
 ### Configuration
 - Set up the `.env` file with your environment-specific variables, such as `SECRET_KEY`, `WEBHOOK_SECRET_KEY`,`MONGO_URI`, and `APP_PORT`.

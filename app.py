@@ -1,6 +1,6 @@
 # app.py
 
-import pymongo
+from flask_pymongo import PyMongo
 from app.common.constants import STATUS_CODES
 from app.common.utils import Responses
 from app.routes import create_routes
@@ -40,7 +40,7 @@ def page_not_found(e):
         {'message': 'The requested resource can\'t be found.'}
     )
 
-mongo = pymongo(app)
+mongo = PyMongo(app)
 
 # Run the application
 if __name__ == '__main__':
