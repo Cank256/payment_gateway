@@ -12,6 +12,8 @@ def create_routes(app):
     # Initialize the custom API handler with the Flask app  
     api = HandleRequests(app, prefix='/api')
 
+    app.before_request(HandleRequests.handle_body)
+
     # Add your routes here
     api.add_resource(IndexRoute, '/', '')
     api.add_resource(CollectPayment, '/collect')

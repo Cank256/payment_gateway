@@ -1,4 +1,6 @@
+import hashlib
 import os
+import uuid
 from app.common.constants import STATUS_CODES
 from collections import OrderedDict
 from flask import make_response
@@ -87,3 +89,11 @@ def load_service_providers():
         with open(PROVIDERS_JSON_PATH, 'r') as file:
             data = json.load(file)
         return data['service_providers']
+
+def generate_gateway_ref():
+    unique_id = uuid.uuid4()
+    hasher = hashlib.sha256(str(unique_id).encode())
+    return f"GRI_{(hasher.hexdigest()[:8]).upper()}"
+
+def add_gateway_ref(request_data):
+    request_data['gateway_ref'] = str(generate_gateway_ref)

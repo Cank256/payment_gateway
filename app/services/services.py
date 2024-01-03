@@ -3,9 +3,15 @@ from flask_restful import Resource
 import importlib
 from app.common.utils import Responses, load_service_providers
 
+
 class CollectPayment(Resource):
     def post(self):
         provider_code = request.headers.get('provider')
+
+        if not provider_code:
+            # Handle missing provider header
+            return Responses.create(400, {'error': 'The \'provider\' header is not provided.'})
+
         service_providers = load_service_providers()
 
         # Split the provider_code by underscores, capitalize each part, and then concatenate
@@ -29,7 +35,7 @@ class CollectPayment(Resource):
                 return Responses.create(400,  {'error': f'Class {provider_class_name} not found in the module'})
 
             # Call the collect method of the class
-            return provider_class.collect(provider_config, request.json)
+            return provider_class.collect(provider_config, request.details)
         else:
             return Responses.create(400, {'error': 'Unknown provider'})
 
