@@ -1,3 +1,4 @@
+import os
 from app.common.constants import STATUS_CODES
 from collections import OrderedDict
 from flask import make_response
@@ -81,7 +82,8 @@ class Responses(Resource):
         return message.strip()
 
 def load_service_providers():
-        with open('../../.provider.json', 'r') as file:
+        BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+        PROVIDERS_JSON_PATH = os.path.join(BASE_DIR, '../../.providers.json')
+        with open(PROVIDERS_JSON_PATH, 'r') as file:
             data = json.load(file)
-            print(data)
         return data['service_providers']

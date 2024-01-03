@@ -2,6 +2,7 @@
 
 from app.common.handle_requests import HandleRequests
 from app.common.utils import IndexRoute
+from app.services.services import CollectPayment
 
 
 """
@@ -13,3 +14,4 @@ def create_routes(app):
 
     # Add your routes here
     api.add_resource(IndexRoute, '/', '')
+    api.add_resource(CollectPayment, '/collect')
