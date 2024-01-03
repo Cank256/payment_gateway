@@ -1,20 +1,22 @@
-import os
+# app.py
+
 from app.common.constants import STATUS_CODES
 from app.common.utils import Responses
-import config
-from flask import Flask, Response
-from flask_restful import Api
-from dotenv import load_dotenv
 from app.routes import create_routes
+import config
+from dotenv import load_dotenv
+from flask import Flask
+from flask_restful import Api
+import os
 
 
 # Initialize the Flask app
 app = Flask(__name__)
 
-# Load environment variables
+# Load environment variables from .env file
 load_dotenv()
 
-# Load configurations
+# Load configurations based on the current environment
 env = os.environ.get('APP_ENV', 'development')
 if env == 'production':
     app.config.from_object(config.ProductionConfig)
@@ -23,12 +25,13 @@ elif env == 'testing':
 else:
     app.config.from_object(config.DevelopmentConfig)
 
-# Initialize API
+# Initialize Flask-RESTful API
 api = Api(app)
 
-# Register the routes
+# Register routes with the application
 create_routes(app)
 
+# Add 404 error (works only from here)
 @app.errorhandler(404)
 def page_not_found(e):
     return Responses.create(

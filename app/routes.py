@@ -1,15 +1,14 @@
 # app/routes.py
 
-from collections import OrderedDict
-import json
-from flask import make_response
-from flask_restful import Api
 from app.common.handle_requests import HandleRequests
 from app.common.utils import IndexRoute
 
 
+"""
+Function to create and register routes with the Flask application
+"""
 def create_routes(app):
-
+    # Initialize the custom API handler with the Flask app  
     api = HandleRequests(app, prefix='/api')
 
     # Add your routes here

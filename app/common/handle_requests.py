@@ -1,9 +1,15 @@
-from flask_restful import Api as OriginalApi
+# app/common/handle_requests.py
+
 from flask import request
-from werkzeug.exceptions import MethodNotAllowed, NotFound
+from flask_restful import Api as OriginalApi
 from app.common.constants import STATUS_CODES
 from app.common.utils import Responses
+from werkzeug.exceptions import MethodNotAllowed
 
+
+"""
+The class handles the processing of request data and errors
+"""
 class HandleRequests(OriginalApi):
     def handle_error(self, e):
         # Check if it's a 405 Method Not Allowed error
