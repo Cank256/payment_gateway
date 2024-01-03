@@ -1,5 +1,6 @@
 # app.py
 
+import pymongo
 from app.common.constants import STATUS_CODES
 from app.common.utils import Responses
 from app.routes import create_routes
@@ -38,6 +39,8 @@ def page_not_found(e):
         STATUS_CODES.NOT_FOUND,
         {'message': 'The requested resource can\'t be found.'}
     )
+
+mongo = pymongo(app)
 
 # Run the application
 if __name__ == '__main__':
