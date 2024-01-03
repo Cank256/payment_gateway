@@ -9,6 +9,10 @@ class IndexRoute(Resource):
     def get(self):
         return Response.create(200, {'message': 'Welcome to the Gateway'})
 
+class CustomErrors(Resource):
+    def method_not_allowed(e):
+        return Response.create(405, {'error': 'Method not allowed for the requested URL.'})
+
 class Response(Resource):
     def create(code, data=None, extra_info=''):
         if not isinstance(code, int):
@@ -23,13 +27,14 @@ class Response(Resource):
                 ('data', data)
             ])
         response_json = json.dumps(response)
-        return make_response(response_json, 200, {'Content-Type': 'application/json'})
+        return make_response(response_json, code, {'Content-Type': 'application/json'})
 
     def generate_message(code, extra_info=''):
         messages = {
             STATUS_CODES.OK: "Request completed.",
             STATUS_CODES.SERVICE_UNAVAILABLE: "Service is unavailable.",
             STATUS_CODES.BAD_REQUEST: "Invalid request.",
+            STATUS_CODES.METHOD_NOT_ALLOWED: "Method not allowed.",
             STATUS_CODES.HTTP_GATEWAY_TIMEOUT: "Gateway Timedout.",
             STATUS_CODES.INTERNAL_SERVER_ERROR: "Encountered an unexpected condition.",
             STATUS_CODES.UNPROCESSABLE_ENTITY: "Request Failed.",
